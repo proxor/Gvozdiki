@@ -1,0 +1,32 @@
+<script>
+  <!--
+    $(document).ready(function(){
+        $('#admin-panel a').attr('href','javascript:void()');
+        $('#admin-panel a.item-type').click(itemTypeClick);
+    });
+    function itemTypeClick(event){
+        $target = $(event.target);
+        $('#item_type').val($target.text());
+    }
+    function applyItemType(sender){
+        $('.price .item-checked[checked]').each(function(){
+            $.ajax({
+               data:'authenticity_token=' + 
+               encodeURIComponent(<%= "'#{form_authenticity_token}'" %>),  
+               type:'post', 
+               url: '/products/set_item_type/'+$(this).val()+'?item_type='+$('#item_type').val() });
+            $(this.parentNode).siblings('td.i').text($('#item_type').val());
+        });
+    }
+  -->
+</script>
+<div id="admin-panel">
+  <h3>Администрирование</h3>
+  <div id="item-types">
+    <a href="/nojava.htm" onclick="applyItemType(this)">Установить</a> единицу измерения:
+    <%= text_field_tag :item_type, :name %>
+    <% for item in ItemType.find(:all) -%>
+      [<a href="/nojava.htm" class='item-type'><%= item.name %></a>]
+    <% end -%>
+  </div>
+</div>

@@ -1,0 +1,3 @@
+<h1>Диcпетчер фотографий</h1>
+<%= render :partial => 'tag_panel', :locals => {:tags => @tags} %>
+<div id='collection'><%= render :partial => 'photo_item', :collection => @files %></div>

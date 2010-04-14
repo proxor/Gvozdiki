@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>"Гвоздики" - Магазин строительных материалов</title>
+  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'store' %>
+  <%= javascript_include_tag :defaults %>
+</head>
+<body>
+  <div id="header">
+    <div id="subheader">Магазин бытовых товаров, больших и маленьких</div>
+    <h1>Гвоздики.ру</h1>
+  </div>
+  <div id="navigation">
+    <div id="navigation-wrapper">
+        <div class="nav-link"><%= link_to 'каталог', :controller => 'store' %></div> |
+        <div class="nav-link"><%= link_to 'контактная информация', :controller => 'store' %></div>
+    </div>
+  </div>
+  <div id="content">
+    <div id="content-wrapper">
+    <p style="color: green"><%= flash[:notice] %></p>
+    <%= yield  %></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<tr>
+  <td><%=h search_item.categories[0].title %></td>
+  <td><%=h number_with_precision(search_item.code,0) %></td>
+  <td><%= link_to h(search_item.title), 
+    {:action => :add_to_cart, :id => search_item}, 
+    :confirm => "Добавить в корзину?"%></td>
+  <td><%= number_to_currency(search_item.price, :unit => "руб.", :format => "%n %u")  %></td>
+</tr>

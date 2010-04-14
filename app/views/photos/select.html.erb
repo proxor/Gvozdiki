@@ -1,0 +1,19 @@
+<script language='javascript'>
+    <!--
+    function add_to_product(){
+        $('.selected').each(function(i){
+            $.ajax({data:'product_id=<%=@product.id%>&authenticity_token=' + 
+                        encodeURIComponent(<%= "'#{form_authenticity_token}'" %>),
+		type:'post', url:'/photos/add_to_product/'+$(this).attr('name')+'/'});
+        });
+    }
+    
+    //-->
+</script>
+<h1>Выбор фотографий для товара</h1>
+<div style="font-size:1.2em;"><%=@product.title%></div>
+<a href="#" onclick="add_to_product()">Присвоить</a> выделенные фотографии товару
+<hr>
+<%= render :partial => 'tag_panel', :locals => {:tags => @tags} %>
+<hr>
+<div id='collection'><%= render :partial => 'photo_item', :collection => @files %></div>

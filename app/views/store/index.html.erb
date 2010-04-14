@@ -1,0 +1,155 @@
+<%= stylesheet_link_tag 'editwindow', :media => 'all' %>
+<style type="text/css">
+<!--
+
+	.top-category-container {
+		margin:4px;
+		position:relative;
+		display:inline-block;
+		font-size:0.9166em; /* 11px */
+		text-align:left;
+		vertical-align:top;
+		min-width:24em;
+		/*min-width:45em;*/
+	}
+	.top-category-container .image {
+		display:none;
+		/*float:left;*/
+		margin:5px;
+		text-align:center;
+	}
+	.top-category-container .selected {
+		font-size:1.2em; /* 12pt */
+		font-weight:bold;
+		color:#303030;
+		border-bottom:1px solid #808080;
+		padding-bottom:1px;
+		margin-bottom:2px;
+	}
+	.top-category-container .selected a {
+		color:#303030;
+	}
+	.top-category-container li {
+		margin-left:4px;
+	}
+	.top-category-container a {
+		text-decoration:none;
+		color:#3F3F00;
+	}
+
+	#footer {
+		-moz-border-radius-bottomleft:8px;
+		-moz-border-radius-bottomright:8px;
+		background-color:#808080;
+		text-align:center;
+		color:#ffffff;
+	}
+	#footer :first-child.menu-item {
+		border-left:1px solid #cccccc;
+		padding-left:3px;
+	}
+	#footer .menu-item {
+		display:inline-block;
+		padding-right:4px;
+		border-right:1px solid #cccccc;
+	}
+
+        .group-control {
+		background-color:#cccccc;
+	}
+
+	.category-control {
+		background-color:#eeeeee;
+		display:inline-block;
+		margin-right:1em;
+	}
+	.category-control a {
+		display:inline-block;
+	}
+
+
+#category-name { width:18em; }
+#category-group { width:3em; }
+#category-group-order { width:3em; }
+-->
+</style>
+<style type="text/css" media="print">
+<!--
+	.top-category-container .selected {
+		font-size:inherit;
+		font-weight:inherit;
+		color:inherit;
+		border-bottom:inherit;
+		padding-bottom:inherit;
+		margin-bottom:inherit;
+	}
+	.top-category-container a {
+		text-decoration:none;
+		color:inherit;
+	}
+-->
+</style>
+<script language="javascript">
+<!--
+	$(document).ready(function(){
+		$('.top-category-container li:first-child').addClass('selected');
+		$('.top-category-container li')
+			.mouseover(changeSelectedItem);
+	});
+
+	function changeSelectedItem(){
+		$('.top-category-container li').removeClass('selected');
+		$('.top-category-container li:first-child').addClass('selected');
+		$(this.parentNode).find('li:first-child').removeClass('selected');
+		$(this).addClass('selected');
+	}
+//-->
+</script>
+<% if session[:user_id] %>
+  <% content_for :control_panel_items do %>
+    <a class="menu-item ajax" onclick="showWindow('new-category-window')" href="/noscript.html">Добавить категорию</a>
+  <% end %>                
+  <script>
+    <!--
+        $(document).ready(function(){
+          $('.top-category-container').each(function(){
+            name = $(this).attr('name');
+            $(this).prepend('<div class="group-control">{'+name+'}</div>');
+          });
+          $('.top-category-container li').each(function(){
+            name = $(this).attr('name');
+            $(this).prepend('<div class="category-control"><a href="">[*]</a><a href="/categories/destroy/'+name+'">[-]</a></div>')
+          });
+
+          $('.top-category-container li a:first-child')
+            .attr('href','javascript:void()')
+            .click(function(){
+              editCategory(this);
+            });
+ 
+          $('.top-category-container li').unbind('mouseover',changeSelectedItem);
+          $('.top-category-container li:first-child').removeClass('selected');
+        });
+
+        function editCategory(sender){
+          $('#new-category-window').slideDown();
+        }
+    //-->
+  </script>
+  <div id="new-category-window" class="window">
+      <% form_tag '/categories/create' do -%>
+          <div class="title">Новая категория</div>
+          <label for="category-name">Название: <input id="category-name" type="text" name="category[title]"></label>
+          <label for="category-group">Группа: <input id="category-group" type="text" name="category[group]"></label>
+          <label for="category-group-order">Порядок: <input id="category-group-order" type="text" name="category[group_order]"></label>
+          <div class="buttons">
+                  <input type="submit" value="Создать">
+                  <input type="button" value="Отмена" onclick="$(this.parentNode.parentNode.parentNode).slideUp();">
+          </div>
+      <% end %>
+  </div>
+
+<% end %>
+
+<div class="print-only"><h2>Категории товаров</h2></div>
+<%= render :partial => 'categories/group', :collection => @categories_groups %>

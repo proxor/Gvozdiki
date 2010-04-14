@@ -1,0 +1,21 @@
+<h1>Список заказов</h1>
+
+<table>
+  <tr>
+    <th>Имя</th>
+    <th>Телефон</th>
+    <th>E-mail</th>
+  </tr>
+
+<% for order in @orders %>
+  <tr>
+    <td><%=h order.name %></td>
+    <td><%=h order.phone %></td>
+    <td><%=h order.e_mail %></td>
+    <td><%= link_to 'Показать', order %></td>
+    <td><%= link_to 'Изменить', edit_order_path(order) %></td>
+    <td><%= link_to 'Удалить', order, :confirm => 'Точно не нужен?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+

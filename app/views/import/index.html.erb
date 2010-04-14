@@ -1,0 +1,17 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<h1>Импорт CSV-прайса</h1>
+<% form_tag({:action => 'import_csv'}, :multipart => true) do %>
+  
+  <%= 
+    select(:category, :id, 
+      Category.find(:all, :order => 'title').map {|u| [u.title, u.id]}) %>
+    
+  
+  <label for="source">Файл прайса:</label> <%= file_field 'source', 'pricefile' %>
+  
+  <%= submit_tag "Загрузить" %>
+
+<% end %>

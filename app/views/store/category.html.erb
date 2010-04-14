@@ -1,0 +1,193 @@
+<style type="text/css">
+<!--
+	#content {
+		text-align:left;
+	}
+	#categories-container {
+		float:left;
+		clear:left;
+		padding-left:4px;
+		vertical-align:top;
+		width:20em;
+		margin-right:2%;
+	}
+	#categories-container .top-category-container {
+		text-align:left;
+		font-size:0.9166em; /* 11pt*/
+		padding-top:4px;
+		padding-bottom:6px;
+		border-bottom:1px solid #999999;
+	}
+	#categories-container .top-category-container a {
+		text-decoration:none;
+		color:#3F3F00;
+	}
+	#categories-container .top-category-container .image {
+		display:none;
+	}	
+	#categories-container :last-child.top-category-container {
+		border-bottom-width:0px;
+		padding-bottom:2em;
+	}
+	
+	#price-container {
+		display:inline-block;
+		float:left;
+		clear:right;
+		width:65%;
+		vertical-align:top;
+	}
+	#price-table {
+		width:100%;
+	}
+	#price-table th { 
+		font-size:0.9166em; 
+		font-weight:normal; 
+		padding-left:1em; 
+		padding-right:1em;
+		padding-bottom:0.5em;
+	}
+	#price-table th a {
+		border-bottom:1px dashed #808080;
+	} 
+	#price-table td { 
+		padding-left:1em; 
+		padding-right:1em; 
+		border-bottom:1px solid #ffffff;
+		cursor:pointer;
+	}
+        #price-table td a {
+		text-decoration: inherit;
+                color:inherit;
+	} 
+	#price-table th.c { text-align:center; width:1%; }
+	#price-table td.c { text-align:right; }
+	#price-table th.t { text-align:left; }
+	#price-table td.t { text-align:left; }
+	#price-table th.i { text-align:center; width:1% }
+	#price-table td.i { text-align:left; }
+	#price-table th.p { text-align:center; width:9em;}
+	#price-table td.p { text-align:right; }
+	
+	#price-table th.sort-asc:before {
+		content:"↓";
+	}
+	#price-table th.sort-desc:before {
+		content:"↑";
+	}
+	#price-table td.selected { color:#669900;} 
+
+	#price-table .product-card {
+		background-color:#CCCCCC;
+		border:3px solid #cccccc;
+		margin-top:4px;
+	}
+	#price-table .product-card td {
+		vertical-align:top;
+		width:100%;
+		border:0px solid white;
+		padding:0;
+	}
+	#price-table .product-card td.image {
+		width:1%;
+		padding-right:5px;
+	}
+	#price-table .product-card .product-image-container {
+		vertical-align:middle;
+		text-align:center;
+	}
+	#price-table .product-card .product-image-container a {
+		text-decoration:none;
+		color:black;
+	}
+        .product-image-dummy {
+                width:129px;
+                height:0px;
+        }
+	.product-card .product-image {
+		border:1px solid #808080;
+		background-color:#eeeeee;
+		display:table-cell;
+		vertical-align:middle;
+		height:129px;
+		width:129px;
+	}
+	.product-card .price {
+		font-size:1.3333em;
+		min-width:9em;
+		text-align:right;
+	}
+	.product-card .title {
+		font-size:1.3333em;
+		font-weight:bold;
+		height:1%;
+	}
+	.product-card .actions {
+		text-align:right;
+	}
+	.product-card .info {
+		margin-top:0.5em;
+		font-size:0.9166em;
+	}
+	.product-card input[type="submit"] {
+		border:1px solid #808080;
+	}
+
+-->
+</style>
+<style type="text/css" media="print">
+<!--
+	#price-container { width:100%; }
+	#price-table .product-card {
+		border:1px solid #cccccc;
+		background-color:#ffffff;
+	}
+	#price-table th a {
+		border-bottom:0px dashed #808080;
+	}
+	#price-table .product-card .image {
+		text-align:center;
+		padding:1px;
+	}
+	#price-table .product-card .product-image {
+		border:1px solid #ffffff;
+		background-color:#ffffff;
+	}
+-->
+</style>
+<script language="javascript">
+<!--
+	$(document).ready(function(){
+		$('#price-table > tbody > tr > td')
+			.mouseover(chandeSelecredPriceRow)
+			.mouseout(chandeSelecredPriceRow);
+	});
+	
+	function chandeSelecredPriceRow(){
+		$(this.parentNode).find('td').toggleClass('selected');
+	}
+	
+//-->
+</script>
+<div id="categories-container" class="no-print">
+  <%= render :partial => 'categories/group', :collection => @categories_groups %>
+</div>
+<div id="price-container">
+  <h2><%=h @category.title %></h2>
+  <table id="price-table">
+    <tr>
+      <th class="c"><a >код</a></th>
+      <th class="t sort-asc"><a >наименование</a></th>
+      <th class="p"><a >цена</a></th>
+      <th class="i"><a >ед.</a></th>
+    </tr>
+  <% for line in @category.products.sort_by {|a| a.title }  %>
+    <tr name="<%=line.id%>">
+      <td class="c"><%=h number_with_precision(line.code,0) %></td>
+      <td class="t"><%= link_to h(line.title), :action => :product, :id => line.id %></td>
+      <td class="p"><nobr><%= number_to_currency(line.price, :unit => "руб.", :format => "%n %u") %></nobr></td>
+      <td class="i"><nobr><%= line.item_type.name if line.item_type %></nobr></td>
+    </tr>
+  <% end %>
+  </table>
+</div>

@@ -1,0 +1,36 @@
+<tr name="<%= @product.id %>">
+  <td colspan="4">
+    <table id="4" class="product-card">
+      <tr>
+        <td class="image" rowspan="2">
+        <% for photo in @product.photos -%>
+        <div class="product-image-container" style="display:none;">
+          <div class="product-image">
+            <img src="/photos/get_thumb/<%=photo.id %>"/>
+            <div class="product-image-dummy"></div>
+          </div>
+          <div class="arrows no-print">
+            <a onclick="showPrev(this)">←</a> <a href="/photos/get/<%=photo.id %>">+</a> <a onclick="showNext(this)">→</a>
+          </div>
+        </div>
+        <% end %>
+        </td>
+        <td class="title"><%= h(@product.title) %></td>
+        <td class="price"><%= number_to_currency(@product.price, :unit => "руб.", :format => "%n %u") %></td>
+      </tr>
+      <tr>
+        <td class="content">
+        <%= @product.description %>
+        <div class="info">код товара: <%=h number_with_precision(@product.code,0) %></div>
+        </td>
+        <td class="actions">
+        <% if @product.item_type %>
+          <div class="item-type">за <%=h @product.item_type.name %></div>
+        <% end %>
+          <%= button_to 'Заказать', {:action => :add_to_cart, :id => @product.id}, :class => 'no-print' %>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+

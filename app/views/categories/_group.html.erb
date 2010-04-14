@@ -1,0 +1,7 @@
+<div class="top-category-container" name="<%= group[0].group %>">
+  <ul>
+    <% for category in group -%>
+      <li name='<%= category.id %>'><%= link_to h(category.title), :action => 'category', :id => category.id %></li>
+    <% end %>
+  </ul>
+</div>

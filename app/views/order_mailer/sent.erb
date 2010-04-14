@@ -1,0 +1,19 @@
+OrderMailer#sent
+
+Заказщик: <%=h @order.name %>
+Тел.: <%=h @order.phone %>
+Почта.: <%=h @order.e_mail %>
+
+<% total = 0 %>
+<% for item in @order.order_items -%>
+  <% total += item. quantity * item.product.price -%>
+-- <%=h item.product.title %>
+   <%= number_to_currency(item.product.price, :unit => "руб.", :format => "%n %u") %> * <%= item.quantity %> = <%= number_to_currency(item. quantity * item.product.price, :unit => "руб.", :format => "%n %u") %>
+<% end %>
+
+Сумма заказа: <%= number_to_currency(total, :unit => "руб.", :format => "%n %u")%>
+
+-- 
+С наилучшими пожеланиями,
+Прохор Шучалов
+ООО Медиаринг

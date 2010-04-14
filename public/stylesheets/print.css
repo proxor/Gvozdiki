@@ -1,0 +1,28 @@
+.print-only {
+	display:inherit;	
+}
+.no-print {
+	display:none;
+}
+body, wrapper {
+	margin:0;
+	padding:0;
+}
+
+#header { 
+	padding:0; height:auto; 
+	background-color:#ffffff
+}
+
+#motto {
+    margin-top:0px;
+    margin-left:0px;
+  }
+
+#header h1 {
+    margin-left:0px;
+ }
+
+#menu {
+	background-color:#ffffff;
+}

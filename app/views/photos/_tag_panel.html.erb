@@ -1,0 +1,81 @@
+<style type='text/css'>
+    .thumb { display:inline-block; width:125px; height:125px; background-position:center center;
+background-repeat:no-repeat;  border: 2px solid white; margin:1px; background-color:#cccccc; }
+    .selected { border: 2px solid #6666FF; background-color:#9999CC; }
+    .selected-tag { background-color: #9999CC; }
+</style>
+<script language='javascript'>
+    <!--
+    $(document).ready(function(){
+        attach_events();
+    });
+
+    function attach_events(){
+        $('.thumb').click(function(event){
+            $target = $(event.target);
+            $target.toggleClass('selected');
+            $('#tag_input').val($target.attr('title'));
+        });
+    }
+
+    function select_all(){
+        $('.thumb').addClass('selected');
+    }
+    function deselect_all(){
+        $('.thumb').removeClass('selected');
+    }
+    function apply_tag(){
+        $('.selected').each(function(i){
+            $.ajax({data:'tag='+$('#tag_input').val()+'&authenticity_token=' + 
+                        encodeURIComponent(<%= "'#{form_authenticity_token}'" %>),
+		type:'post', url:'/photos/add_tag/'+$(this).attr('name')+'/'});
+        });
+    }
+    function remove_tag(){
+        $('.selected').each(function(i){
+            $.ajax({data:'tag='+$('#tag_input').val()+'&authenticity_token=' + 
+                        encodeURIComponent(<%= "'#{form_authenticity_token}'" %>),
+		type:'post', url:'/photos/remove_tag/'+$(this).attr('name')+'/'});
+        });
+    }
+    function filter(sender){
+        $('#tag_input').val($(sender).text());
+        $(sender).toggleClass('selected-tag');
+        var tag_list = '';
+        $('.selected-tag').each(function(){
+            tag_list += $(this).text()+',';
+        });
+        $.ajax({data:'tag_list='+tag_list+'&authenticity_token=' + 
+                        encodeURIComponent(<%= "'#{form_authenticity_token}'" %>),
+                success:function(result){
+                    $('#collection').html(result);
+                    attach_events();
+                },
+		type:'post', url:'/photos/filter/'});
+         
+    }
+    function clear_filter(){
+        $('.selected-tag').removeClass('selected-tag');
+        $.ajax({data:'authenticity_token=' + 
+                        encodeURIComponent(<%= "'#{form_authenticity_token}'" %>),
+                success:function(result){
+                    $('#collection').html(result);
+                    attach_events();
+                },
+		type:'post', url:'/photos/filter/'});
+    }
+    function remove(){
+        $('.selected').each(function(i){
+            $.ajax({data:'tag='+$('#tag_input').val()+'&authenticity_token=' + 
+                        encodeURIComponent(<%= "'#{form_authenticity_token}'" %>),
+		type:'post', url:'/photos/delete/'+$(this).attr('name')+'/'});
+        });
+    }
+    
+    //-->
+</script>
+<div>Тэги: [<a href="#" onclick="clear_filter()">все</a>]<% for tag in @tags -%>[<a href="#" onclick="filter(this)"><%=tag.name %></a>]<% end %>  
+</div>
+<div>Выделение: [<a href="#" onclick="select_all()">все</a>][<a href="#" onclick="deselect_all()">ниодну</a>]</div>
+<div>Операции: [<a href="#" onclick="remove()">удалить</a>]</div>
+<div><a href="#" onclick="apply_tag()">присвоить</a>|<a href="#" onclick="remove_tag()">снять</a> тег <%= text_field_tag 'tag_input' %></div>

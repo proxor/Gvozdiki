@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  code: 9.99
+  article: MyString
+  title: MyString
+  img_url: MyString
+  price: 9.99
+
+two:
+  code: 9.99
+  article: MyString
+  title: MyString
+  img_url: MyString
+  price: 9.99

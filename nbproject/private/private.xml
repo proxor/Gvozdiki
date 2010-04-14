@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/home/proxor/servers/rails/gvozdiki/app/controllers/categories_controller.rb</file>
+        <file>file:/home/proxor/servers/rails/gvozdiki/app/controllers/store_controller.rb</file>
+        <file>file:/home/proxor/servers/rails/gvozdiki/app/views/categories/_group.html.erb</file>
+        <file>file:/home/proxor/servers/rails/gvozdiki/app/views/layouts/store.html.erb</file>
+        <file>file:/home/proxor/servers/rails/gvozdiki/app/views/store/_product_card.html.erb</file>
+        <file>file:/home/proxor/servers/rails/gvozdiki/app/views/store/index.html.erb</file>
+        <file>file:/home/proxor/servers/rails/gvozdiki/public/javascripts/store.js</file>
+    </open-files>
+</project-private>

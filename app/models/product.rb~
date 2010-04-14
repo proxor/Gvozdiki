@@ -1,0 +1,12 @@
+class Product < ActiveRecord::Base
+  has_many :category_products#, :dependent => :nullify
+  has_many :categories, :through => :category_products
+
+  def category_ids
+    categories.map(&:id)
+  end
+  
+  validates_presence_of :code, :article, :title
+  validates_numericality_of :code, :only_integer => true
+  validates_numericality_of :price
+end

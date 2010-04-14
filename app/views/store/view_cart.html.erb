@@ -1,0 +1,50 @@
+    <script language="JavaScript">
+      <!--
+$(document).ready(function(event){
+  $(".quantity").change(onQuantityChange);
+});
+
+function onQuantityChange(event){
+	var $target = $(event.target);
+	
+	$target.val(
+		$target.val().replace(',','.')
+		);
+
+	if(isNaN($target.val()) || ($target.val() < 0)){
+		$target.addClass("error");
+        }
+	else{
+		$target.removeClass("error");
+		onQuantityChanged(event);
+	}
+}
+
+function onQuantityChanged(event){
+    var $target = $(event.target);
+    quantity = $target.val();
+    product = $target.attr("name");
+    $url = '/store/change_quantity?product='+product+'&quantity='+quantity;
+    $.ajax({
+       data:'authenticity_token=' + 
+       encodeURIComponent(<%= "'#{form_authenticity_token}'" %>), 
+       success:function(request){$('#cart_partial').html(request); $(".quantity").change(onQuantityChange);}, 
+       type:'post', 
+       url: $url });
+}
+      //-->
+    </script>
+    <style type="text/css">
+      <!--
+	.error { background-color:pink; } 
+      -->
+    </style>
+    
+    
+<h1>Ваша корзина</h1>
+<div id="cart_partial">
+<%= render(:partial => 'cart', :locals => {:cart => @cart} )%>
+</div>
+<%= button_to "Продолжить выбор", {:controller => :store,:action => :index} %>
+<%= button_to "Оформить заказ", {:controller => :orders,:action => :new} %>
+<%= button_to "Очистить корзину", {:action => :empty_cart}, :confirm =>"Вы не случайно хотите очистить корзину?" %>

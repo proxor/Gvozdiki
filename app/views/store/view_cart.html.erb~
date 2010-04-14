@@ -1,0 +1,15 @@
+<h1>Ваша корзина</h1>
+<table id="cart">
+  <% for item in @cart.items %>
+    <TR>
+      <TD><%=h item.title %></TD>
+      <TD class="price"><%= number_to_currency(item.product.price, :unit => "руб.", :format => "%n %u") %></TD>
+      <TD>&times;&nbsp;<%= item.quantity %>&nbsp;=</TD>
+      <TD class="price"><%= number_to_currency(item.price, :unit => "руб.", :format => "%n %u") %></TD>
+    </TR>
+  <% end %>
+    <TR id="total">
+      <TD colspan="4" class="price"><%= number_to_currency(@cart.total_price, :unit => "руб.", :format => "%n %u") %></TD>
+    </TR>
+</table>
+<%= button_to "Очистить корзину", {:action => :empty_cart}, :confirm =>"Вы не случайно хотите очистить корзину?" %>

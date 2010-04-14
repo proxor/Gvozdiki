@@ -1,0 +1,31 @@
+<h1>Поиск</h1>
+<% if @match_products && @match_products.length > 0 %>
+<p>А ещё я хочу найти&#133;</p>
+<% else %>
+<p>К сожалению, ничего найти не удалось. Попробуйте немного изменить запрос.</p>
+<% end %>
+  
+<% form_tag :action => 'go', :method => 'get' do %>
+  <%= text_field_tag 'request', @request.gsub('%', ' ') -%>
+  <%= submit_tag 'Искать' %>
+<% end %>
+
+<% if @match_products && @match_products.length > 0 %>
+<table class="price">
+  <tr>
+    <th align="left">
+        категория
+    </th>
+    <th align="left">
+        код
+    </th>
+    <th align="left">
+      наименование
+    </th>
+    <th align="center">
+      цена          
+    </th>
+  </tr>
+  <%= render(:partial => "store/price_item", :collection => @match_products) %>
+</table>
+<% end %>

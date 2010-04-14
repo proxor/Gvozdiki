@@ -1,0 +1,50 @@
+<tr>
+  <td colspan="3">
+<% form_for @product do |f| %>
+  <% field_set_tag h(@product.title) do %>
+<table class="product-card-edit">
+ <tr>
+   <TD class="property">Код товара:</TD>
+   <TD class="value">
+     <%= f.text_field :code %> 
+     Артикул: <%= f.text_field :article %>
+     <%=f.submit 'Сохранить'%>
+   </TD>
+ </tr>
+ <tr>
+   <TD class="property">Наименование:</TD>
+   <TD class="value"><%= f.text_field :title %></TD>
+ </tr>
+ <tr>
+   <TD class="property">Цена:</TD>
+   <TD class="value">
+     <%= f.text_field :price %>
+   </TD>
+ </tr>
+ <tr>
+   <TD class="property">Описание:</TD>
+   <TD class="value"><%= f.text_area :description %></TD>
+ </tr>
+ <tr>
+   <TD class="property" rowspan="2">Фотографии:</TD>
+   <TD class="value">[<%= link_to 'подобрать фотографии', 
+                                    :controller => :photos, 
+                                    :action => :select, :id => @product.id %>]</TD>
+ </tr>
+ <tr>
+   <TD class="value">
+<% for photo in @product.photos -%>
+	<div class="product-image-wrapper"><div class="product-image" 
+            style="background-image:url('/photos/get_thumb/<%=photo.id %>')"></div>
+               [<%= link_to 'убрать', :controller => :photos, 
+                 :action => :remove_from_product, 
+                 :id => photo.id, 
+                 :product_id => @product.id%>]</div>
+<% end %>
+   </TD>
+ </tr>
+</table>
+  <% end %>
+<% end %>
+  </td>
+</tr>

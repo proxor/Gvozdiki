@@ -1,0 +1,6 @@
+<h1>Поиск</h1>
+<p>Я хочу&#133;</p>
+<% form_tag :action => 'go', :method => 'get' do %>
+  <%= text_field_tag 'request' -%>
+  <%= submit_tag 'Искать' %>
+<% end %>

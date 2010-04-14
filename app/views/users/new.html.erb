@@ -1,0 +1,26 @@
+<fieldset>
+  <legend>Введите данные пользователя</legend>
+    <%= error_messages_for :user %>  
+
+    <% form_for(@user) do |f| %>
+
+
+      <p>
+        <%= f.label :name, 'Имя:'-%>
+        <%= f.text_field :name, :size => 40 %>
+      </p>
+      <p>
+        <%= f.label :password, 'Пароль:' -%>
+        <%= f.password_field :password, :size => 40 %>
+      </p>
+      <p>
+        <%= f.label :password_confirmation, 'Ещё раз пароль:' -%>
+        <%= f.password_field :password_confirmation, :size => 40 %>
+      </p>
+      <p>
+        <%= f.submit "Добавить" %>
+      </p>
+    <% end %>
+</fieldset>
+
+<%= link_to 'Назад', users_path %>

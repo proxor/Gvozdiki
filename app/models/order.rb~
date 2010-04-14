@@ -1,0 +1,4 @@
+class Order < ActiveRecord::Base
+  serialize :cart_items
+  validates_presence_of :phone
+end

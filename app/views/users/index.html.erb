@@ -1,0 +1,19 @@
+<h1>Список пользователей</h1>
+
+<table>
+  <tr>
+    <th>Имя</th>
+  </tr>
+
+<% for user in @users %>
+  <tr>
+    <td><%=h user.name %></td>
+    <td><%= link_to 'Изменить', edit_user_path(user) %></td>
+    <td><%= link_to 'Удалить', user, :confirm => 'Он не будет возражать?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Добавить пользователя', new_user_path %>

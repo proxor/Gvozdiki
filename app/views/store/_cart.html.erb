@@ -1,0 +1,14 @@
+<table id="cart">
+  <% for item in @cart.items %>
+    <TR>
+      <TD><%=h item.title %>&nbsp;</TD>
+      <TD class="price"><%= number_to_currency(item.product.price, :unit => "руб.", :format => "%n %u") -%></TD>
+      <TD>&times;&nbsp;<%= text_field_tag "quantity-#{item.id}", item.quantity, :class => 'quantity', :name => item.product.id -%></TD>
+      <TD class="item"><%= item.product.item_type.name if item.product.item_type%>&nbsp;=</TD>
+      <TD class="price"><%= number_to_currency(item.price, :unit => "руб.", :format => "%n %u") -%></TD>
+    </TR>
+  <% end %>
+    <TR id="total">
+      <TD colspan="5" class="price"><%= number_to_currency(@cart.total_price, :unit => "руб.", :format => "%n %u") %></TD>
+    </TR>
+</table>

@@ -1,0 +1,27 @@
+<style type="text/css">
+<!--
+ fieldset { 
+   border:1px solid #cccccc;
+   width:25em;
+   margin-left:auto;
+   margin-right:auto;
+   padding:4px;
+ }
+ fieldset label { display:inline-block; width:7em; }
+ fieldset p { display:block; margin-bottom:4px; }
+//-->
+</style>
+<fieldset>
+  <legend>Введите ваши данные</legend>
+    <% form_tag do %>
+      <p>
+        <%= label_tag :name, 'Имя:'-%>
+        <%= text_field_tag :name, params[:name] %>
+      </p>
+      <p>
+        <%= label_tag :password, 'Пароль:' -%>
+        <%= password_field_tag :password, params[:password] %>
+      </p>
+      <%= submit_tag "Войти" %>
+    <% end %>
+</fieldset>

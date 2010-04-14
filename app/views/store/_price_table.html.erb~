@@ -1,0 +1,8 @@
+    <table class="price">
+      <tr>
+        <th>Наименование</th>
+        <th>Цена</th>
+      </tr>
+      <%= render(:partial => "price_item", :collection => Category.find(category).products) 
+    %>
+    </table>

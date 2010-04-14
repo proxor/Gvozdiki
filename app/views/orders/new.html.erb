@@ -1,0 +1,33 @@
+<h1>Ваш заказ</h1>
+<table id="cart">
+  <% for item in @cart.items %>
+    <TR>
+      <TD><%=h item.title %>&nbsp;</TD>
+      <TD class="price"><%= number_to_currency(item.product.price, :unit => "руб.", :format => "%n %u") %></TD>
+      <TD>&times;&nbsp;<%= item.quantity %>&nbsp;=</TD>
+      <TD class="price"><%= number_to_currency(item.price, :unit => "руб.", :format => "%n %u") %></TD>
+    </TR>
+  <% end %>
+    <TR id="total">
+      <TD colspan="4" class="price"><%= number_to_currency(@cart.total_price, :unit => "руб.", :format => "%n %u") %></TD>
+    </TR>
+</table>
+<% form_for(@order) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name, "Имя" %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :phone, "Телефон" %><br />
+    <%= f.text_field :phone %>
+  </p>
+  <p>
+    <%= f.label :e_mail, "Электронная почта" %><br />
+    <%= f.text_field :e_mail %>
+  </p>
+  <p>
+    <%= f.submit "Отправить заказ" %>
+  </p>
+<% end %>

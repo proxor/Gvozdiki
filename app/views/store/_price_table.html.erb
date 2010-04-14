@@ -1,0 +1,60 @@
+<script>
+  <!--
+    $(document).ready(function(){
+        $('#all-check').change(function(){
+            $('.item-checked').attr('checked',$(this).attr('checked'));
+        });
+    });
+  -->
+</script>
+    <table class="price">
+      <tr>
+        <% if session[:user_id] %>
+          <th align="left"><%= check_box_tag "all-check", 'price_item.id', false %></th>
+        <% end %>
+        <th align="left">
+          <% if order != 'code' %>
+            <%= link_to_remote 'код',
+                :url => {
+                    :controller => 'store', :action => 'price_table', 
+                    :category => category, :order => 'code'},
+                :update => "price-table-#{category}"
+            %>
+          <% else %>
+            код
+          <% end %>
+        </th>
+        <th align="left">
+          <% if order != 'title' %>
+            <%= link_to_remote 'наименование',
+                :url => {
+                    :controller => 'store', :action => 'price_table', 
+                    :category => category, :order => 'title'},
+                :update => "price-table-#{category}"
+            %>
+          <% else %>
+            наименование
+          <% end %>
+        </th>
+        <th align="center" width=1%>
+          <% if order != 'price' %>
+            ед.&nbsp;изм.
+          <% end %>
+        </th>
+        <th align="right">
+          <% if order != 'price' %>
+            <%= link_to_remote 'цена',
+                :url => {
+                    :controller => 'store', :action => 'price_table', 
+                    :category => category, :order => 'price'},
+                :update => "price-table-#{category}"
+            %>
+          <% else %>
+            цена
+          <% end %>
+        </th>
+      </tr>
+      <%= 
+        render(:partial => "price_item", :collection => Category.find(category).products.find(:all, :order => order)) 
+    %>
+    </table>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Гвоздики.ру — магазин бытовых товаров и строительных материалов</title>
+  <%= stylesheet_link_tag 'store', :media => 'all' %>
+  <%= stylesheet_link_tag 'print', :media => 'print'%>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'store' %>
+  <%= javascript_include_tag 'productcard' %>
+</head>
+<body>
+<div id="wrapper">
+	<div id="header">
+<noscript>
+<pre>
+    ___
+   /   \         __   | o |  o   T T T
+   |   _ \  / /\  / /\| | |/ |    T T T
+   \___/  \/  \/ /_ \/| | |\ |     T T T
+</pre>
+<!-- Не можете понять, нафига это тут? Откройте в Lynx-е -->
+</noscript>
+		<div id="motto">Магазин бытовых товаров, больших и маленьких</div>
+		<h1>Гвоздики.ру</h1>
+	</div>
+	<div id="menu" class="no-print">
+		<%= link_to 'Каталог', {:controller => 'store'}, :class => 'menu-item' %><noscript> | </noscript><%= link_to 'Поиск', {:controller => 'search'}, :class => 'menu-item' %><noscript> | </noscript><%= link_to 'Ваш заказ', {:controller => 'store', :action => :view_cart}, :class => 'menu-item' %><noscript> | </noscript><a class="menu-item" href="">Контактная информация</a
+		><noscript> | </noscript><a class="menu-item" href="">Отзывы</a
+		><noscript> | </noscript><a class="menu-item" href="">Помощь</a>
+	</div>
+        <% if session[:user_id] %>
+        <div id="control-panel" class="no-print">
+          <div class="menu-item">Логин: <%=User.find(session[:user_id]).name %></div>
+          <%= link_to 'Выйти', 
+                      {:controller => 'admin', :action => 'logout' }, :class => 'menu-item' %>
+          <%= yield :control_panel_items %>
+        </div>
+        <% end %>
+	<p style="color: green"><%= flash[:notice] %></p>
+	<div id="content">
+		<%= yield %>
+	</div>
+	<div id="footer">
+		<div class="menu-item">Владелец: ООО &laquo;Медиаринг&raquo;</div>
+		<div class="menu-item no-print">Администратор сайта</div>
+		<div class="menu-item no-print">Отдел обработки заказов</div>
+		<div class="menu-item no-print">Склад</div>
+	</div>
+</div>
+</body>
+</html>
